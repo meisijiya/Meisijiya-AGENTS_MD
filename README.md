@@ -6,7 +6,7 @@
 
 ## 必装插件
 - [ponytail](https://github.com/DietrichGebert/ponytail)
-- [oh-my-openagent](
+- [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent)
 
 ## 必装CLI
 - [rtk](https://github.com/rtk-ai/rtk)
