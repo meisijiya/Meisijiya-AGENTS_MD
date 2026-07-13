@@ -143,7 +143,12 @@ Leverage these omo features directly instead of reinventing:
 
 Full details: see `omo-integration` (was a skill, now consolidated here).
 
+## AGENTS.md 书写规范
+
+规则见 [docs/agents-md-guide.md](https://github.com/meisijiya/Skills/blob/main/docs/agents-md-guide.md)。
+
 <!-- meisijiya-extras_END -->
+
 
 <!-- meisijiya-skills:start -->
 
@@ -153,34 +158,55 @@ Use this skill system for the omo + pwf stack. Invoke skills by matching their `
 
 These conventions apply globally unless a project-level AGENTS.md overrides them.
 
+### Discipline layer
+
+Before any completion claim (commit, PR, "done", "fixed"), invoke [`verification-before-completion`](~/.agents/skills/verification-before-completion/SKILL.md). Evidence before claims, always.
+
 ### Catalog
 
-**.core/ — load always:**
+**.core/ — load always (9):**
 
-- `using-meisijiya-skills` — meta dispatcher; check before every response
-- `spec-driven-development` — spec before non-trivial code
-- `incremental-implementation` — vertical slices (≤ 100 lines each)
-- `test-driven-development` — red-green-refactor
-- `debugging-and-error-recovery` — 5-step triage (reproduce / localize / reduce / fix / guard)
-- `source-driven-development` — verify API against official docs
+- [`using-meisijiya-skills`](~/.agents/skills/using-meisijiya-skills/SKILL.md) — meta dispatcher; check before every response
+- [`brainstorming`](~/.agents/skills/brainstorming/SKILL.md) — pre-design exploration (HARD-GATE: no implementation before user-approved design)
+- [`spec-driven-development`](~/.agents/skills/spec-driven-development/SKILL.md) — spec before non-trivial code
+- [`incremental-implementation`](~/.agents/skills/incremental-implementation/SKILL.md) — vertical slices (≤ 100 lines each)
+- [`test-driven-development`](~/.agents/skills/test-driven-development/SKILL.md) — red-green-refactor
+- [`verification-before-completion`](~/.agents/skills/verification-before-completion/SKILL.md) — no completion claims without fresh evidence
+- [`debugging-and-error-recovery`](~/.agents/skills/debugging-and-error-recovery/SKILL.md) — 5-step triage (reproduce / localize / reduce / fix / guard)
+- [`source-driven-development`](~/.agents/skills/source-driven-development/SKILL.md) — verify API against official docs
+- [`writing-skills`](~/.agents/skills/writing-skills/SKILL.md) — meta: create/edit skills (TDD for process docs); use to extract repeated workflows into reusable skills
 
-**.extra/ — load on demand:**
-`pwf-enforcer` · `build-gate-visual-review` · `designer-handoff` · `interview-me` · `code-simplification` · `api-and-interface-design` · `security-and-hardening` · `performance-optimization` · `observability-and-instrumentation` · `documentation-and-adrs`
+**.extra/ — load on demand (10):**
+[`pwf-enforcer`](~/.agents/skills/pwf-enforcer/SKILL.md) · [`build-gate-visual-review`](~/.agents/skills/build-gate-visual-review/SKILL.md) · [`designer-handoff`](~/.agents/skills/designer-handoff/SKILL.md) · [`interview-me`](~/.agents/skills/interview-me/SKILL.md) · [`code-simplification`](~/.agents/skills/code-simplification/SKILL.md) · [`api-and-interface-design`](~/.agents/skills/api-and-interface-design/SKILL.md) · [`security-and-hardening`](~/.agents/skills/security-and-hardening/SKILL.md) · [`performance-optimization`](~/.agents/skills/performance-optimization/SKILL.md) · [`observability-and-instrumentation`](~/.agents/skills/observability-and-instrumentation/SKILL.md) · [`documentation-and-adrs`](~/.agents/skills/documentation-and-adrs/SKILL.md)
+
+### Skill chains (process order)
+
+Most work follows a process chain. Invoke skills in order:
+
+1. [`brainstorming`](~/.agents/skills/brainstorming/SKILL.md) — design before implementation (HARD-GATE)
+2. [`spec-driven-development`](~/.agents/skills/spec-driven-development/SKILL.md) — formalize design
+3. [`incremental-implementation`](~/.agents/skills/incremental-implementation/SKILL.md) — vertical slices
+4. [`test-driven-development`](~/.agents/skills/test-driven-development/SKILL.md) — red-green-refactor (per slice)
+5. [`verification-before-completion`](~/.agents/skills/verification-before-completion/SKILL.md) — before any completion claim
+
+[`writing-skills`](~/.agents/skills/writing-skills/SKILL.md) is invoked separately when adding/editing skills OR extracting a repeated workflow into a reusable skill.
 
 ### omo integration
 
 For the reverse map (omo feature → skills that use it), see the `meisijiya-extras` block above. Skills use:
 
-- `source-driven-development` — context7 MCP (primary), grep_app MCP
-- `debugging-and-error-recovery` — oracle agent (escalation), lsp MCP
-- `incremental-implementation` — git-master skill, atlas agent
-- `designer-handoff` — visual-engineering category, frontend-ui-ux skill
-- `security-and-hardening` — security-research mode
-- `using-meisijiya-skills` — Sisyphus (executing delegation), atlas (todo orchestration)
+- [`source-driven-development`](~/.agents/skills/source-driven-development/SKILL.md) — context7 MCP (primary), grep_app MCP
+- [`debugging-and-error-recovery`](~/.agents/skills/debugging-and-error-recovery/SKILL.md) — oracle agent (escalation), lsp MCP
+- [`incremental-implementation`](~/.agents/skills/incremental-implementation/SKILL.md) — git-master skill, atlas agent
+- [`designer-handoff`](~/.agents/skills/designer-handoff/SKILL.md) — visual-engineering category, frontend-ui-ux skill
+- [`security-and-hardening`](~/.agents/skills/security-and-hardening/SKILL.md) — security-research mode
+- [`using-meisijiya-skills`](~/.agents/skills/using-meisijiya-skills/SKILL.md) — Sisyphus (executing delegation), atlas (todo orchestration)
 
 ### Conventions
 
 - Don't ship code without spec + tests
+- Verify before claiming completion (use [`verification-before-completion`](~/.agents/skills/verification-before-completion/SKILL.md))
+- When you notice a repeated workflow, capture it as a skill (use [`writing-skills`](~/.agents/skills/writing-skills/SKILL.md))
 
 [Injected by meisijiya-skills/scripts/inject-agents-md.sh — do not edit]
 <!-- meisijiya-skills:end -->
