@@ -16,6 +16,8 @@
 ## 必装的全局skill
 - [planning-with-files](https://github.com/OthmanAdi/planning-with-files/blob/master/docs/opencode.md)
 - [Meisijiya-skills](https://github.com/meisijiya/Skills)
+- [neat-freak](https://github.com/KKKKhazix/khazix-skills#-neat-freak%E6%B4%81%E7%99%96)
+- [teacher-skill](https://github.com/chentao326/teacher-skill)
 
 ---
 
