@@ -1,8 +1,7 @@
 # meisijiya的AGENTS.md文档
 
-- 版本一：个人用户级AGENTS.md
+- 个人用户级AGENTS.md
 
-- 版本二：搭配个人Skills的AGENTS.md:[AGENTS_Skills.md](https://github.com/meisijiya/Meisijiya-AGENTS_MD/blob/main/AGENTS_Skills.md)，**使用该版本需要重命名为AGENTS.md**。
 
 # 推荐资源
 
