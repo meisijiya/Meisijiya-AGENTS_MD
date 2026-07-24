@@ -2,7 +2,7 @@
 
 ## Personal-Rules
 
-- Please answer in Chinese(中文). Regardless of the language of the question, respond entirely in Chinese(中文).
+- **Please answer in Chinese(中文)**. **Regardless of the language of the question, respond entirely in Chinese(中文)**.
 - The current machine environment is Ubuntu 24.04 on WSL2.
 
 <!-- Personal_Rules_END -->
@@ -84,17 +84,20 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 <!-- Grilling_Protocol_START -->
 
+<SUBAGENT-STOP>
+If you were dispatched as a subagent to execute a specific task, ignore this section — the controller should have completed alignment before dispatch.
+
 ## Grilling-protocol
 
-> Whether or not [superpower](https://github.com/obra/superpowers) — "Reusable Skills and Development Methodology Framework" or [comet](Reusable Skills and Development Methodology Framework) — "Long Task Flow Execution, Skill Orchestration and Scientific Evaluation Platform" is utilized, **the Grilling-protocol must be strictly followed**.
+> When the user proposes a plan, design, or refactor whose intent is unclear, do not act — clarify via the decision-tree grilling protocol. When meisijiya-skills are installed, [`using-meisijiya-skills`](~/.agents/skills/using-meisijiya-skills/SKILL.md) routes matching requests to [`brainstorming`](~/.agents/skills/brainstorming/SKILL.md), which owns the full decision-tree workflow. This section is the framework-independent minimum fallback when skills are absent or unavailable.
 
-When the user proposes a plan, design, or refactor whose intent is not yet clear, do not act — clarify via the "decision-tree grilling" protocol:
+Five invariants:
 
 - **Look it up first**: Factual questions (code locations, API behavior, library versions, config keys) — resolve them yourself via grep/Read/Context7/webfetch. Never surface a fact as a question to the human.
-- **One question at a time, with a recommendation**: Each question must include your own recommended answer, so the user can resolve it with "agree / modify / reject". Never batch multiple questions.
-- **Exhaust every branch**: Treat the fuzzy goal as an if-else decision tree. Walk each branch to its boundary conditions — no skipping, no parallels.
+- **One question, one recommendation**: Ask only one decision at a time, and only when its prerequisites are settled. Give 2–4 mutually exclusive options with exactly one recommendation; the user may agree / modify / reject. Never batch questions.
+- **Exhaust the decision tree**: Treat the fuzzy goal as an if-else decision tree. Walk each branch to its boundary conditions — no skipping, no parallel jumps.
 - **Stop on contradiction**: If the user's description conflicts with the code, docs, or surrounding context, surface the conflict immediately. Do not continue on a false premise.
-- **No code until aligned**: Until the user explicitly says "start" / "go", do not write code, execute plans, or create todo lists — keep grilling.
+- **Wait for release**: Do not write code, execute plans, or create execution todo lists until the user has explicitly approved the design and authorized the next phase. In the OMO chain, authorization is Spec attestation + `/start-work`; without OMO it falls back to an explicit `start` / `go` / `同意`.
 
 <!-- Grilling_Protocol_END -->
 
@@ -105,7 +108,12 @@ When the user proposes a plan, design, or refactor whose intent is not yet clear
 API key / token / secret — Never hardcode them into source code or commit content:
 
 - No local storage: Retrieve them from environment variables (`$API_KEY`) or secret managers; add `.env` / `.env.*.local` to `.gitignore`, and submit `.env.example` as a template.
+
 - No leakage: Redact API keys in all documents, demos, logs, commit messages and PR descriptions (use `sk-***` in outputs); use `<your-api-key>` as placeholders in examples and fixtures; never paste real keys in chats or files.
+
 - No full exposure: Only display the first 4 characters followed by `***` for secrets in logs; full values must never be printed.
 
-<!-- Sensitive_Information_Handling_START -->
+<!-- Sensitive_Information_Handling_END -->
+
+
+
